@@ -1,0 +1,14 @@
+{
+  "name": "pmy-server",
+  "version": "0.0.1",
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "lodash": "^3.4.0",
+    "scoped-http-client": "^0.10.3"
+  },
+  "devDependencies": {
+    "find": "^0.1.7",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^4.0.0"
+  }
+}
