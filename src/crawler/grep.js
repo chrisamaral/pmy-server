@@ -32,8 +32,7 @@ module.exports = function (html, ref) {
       return;
     }
 
-
-    ads.push(_.merge({
+    var ad = _.merge({
       id: trim($adElem.attr('name')),
       title: title,
       price: parseFloat(
@@ -45,7 +44,11 @@ module.exports = function (html, ref) {
       details: $adElem.find('.detail-specific').text().split('|').map(trim),
       location: $adElem.find('.detail-region').text().split(',').map(trim),
       lastUpdate: trim($adElem.find('.col-4').text())
-    }, ref.type));
+    }, ref.type);
+
+    console.log(JSON.stringify(ad, null, 2));
+
+    ads.push(ad);
   });
 
   return ads;

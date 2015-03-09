@@ -4,14 +4,15 @@ var async = require('async');
 var grep = require('./grep');
 var _ = require('lodash');
 var archive = require('./archive');
+var CALL_INTERVAL = 1000 * 2;
 
 async.eachSeries(endpoints,
   (endpoint, callback) =>
-    request(`http://rj.olx.com.br/${endpoint.id}`,
+    request(endpoint.url,
       (err, resp, body) =>
-        _.delay.apply(_,
-          err ? [callback, 1000 * 2, err]
-            : [callback, 1000 * 2, null, archive.save(grep(body, endpoint))]
+        (
+          err ? console.log(err) : archive.save(grep(body, endpoint)),
+            setTimeout(() => callback(null), CALL_INTERVAL)
         )
-    ), (err) => !!err && console.log(err)
+    )
 );

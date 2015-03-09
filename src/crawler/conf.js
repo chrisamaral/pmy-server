@@ -16,8 +16,12 @@ function info(item, key) {
   return x;
 }
 
-var olx = [
-  [
+function genURL(a, baseURL) {
+  return a.baseURL = baseURL + '/' + a.id, a;
+}
+
+var olx = {
+  'http://rj.olx.com.br': [
     {
       city: [
         {
@@ -27,59 +31,60 @@ var olx = [
       ]
     },
     {
-      region: [
+      zone: [
         'zona-sul',
         'zona-norte',
         'zona-oeste',
         'centro'
       ]
-    },
+    }
+    ,
     {
-      type: [
+      product: [
         {
           id: 'imoveis',
           title: 'Imóveis'
         }
       ]
-    },
+    }
+    ,
     {
       contract: [
         'aluguel',
         'venda'
       ]
-    },
+    }
+    ,
     {
-      place: [
+      type: [
         'aluguel-de-quartos',
         'apartamentos',
         'casas'
       ]
     }
   ]
-];
+};
 
-/*
- title: 'ABC : DEFG : GHI',
- id: 'http://abc/def/ghi'
- */
-
-var conf = {};
-
-conf.endpoints = _.reduce(olx[0],
-  (previous, current) => _.flatten(
-    _.values(current).shift().map(newer => {
-        newer = info(newer, _.keys(current).shift());
-        return previous.length > 0
-          ? _.map(previous, (older) =>
-          ({
-            id: older.id + '/' + newer.id,
-            title: older.title + ' : ' + newer.title,
-            type: _.merge(older.type, newer.type)
-          }))
-          : newer;
-      }
+var conf = {
+  endpoints: _.flatten(
+    _.map(olx,
+      (root, baseURL) => _.reduce(root,
+        (previous, current) => _.flatten(
+          _.map(_.values(current).shift(),
+              x => (newer => previous.length > 0
+              ? _.map(previous, older =>
+              ({
+                url: `${older.url}/${newer.id}`,
+                title: older.title + ' : ' + newer.title,
+                type: _.merge({}, older.type, newer.type)
+              }))
+              : [(a => (a.url = `${baseURL}/${a.id}`, a))(newer)])(info(x, _.keys(current).shift()))
+          )
+        ),
+        []
+      )
     )
   )
-  , []);
+};
 
 module.exports = conf;
