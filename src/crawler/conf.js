@@ -70,19 +70,16 @@ conf.endpoints = _.reduce(olx[0],
     _.values(current).shift().map(newer => {
         newer = info(newer, _.keys(current).shift());
         return previous.length > 0
-          ? _.map(previous,
-          (older) => {
-            older = info(older);
-            return {
-              id: older.id + '/' + newer.id,
-              title: older.title + ' : ' + newer.title,
-              type: _.merge(older.type, newer.type)
-            };
-          }
-        ) : newer;
+          ? _.map(previous, (older) =>
+          ({
+            id: older.id + '/' + newer.id,
+            title: older.title + ' : ' + newer.title,
+            type: _.merge(older.type, newer.type)
+          }))
+          : newer;
       }
     )
   )
-, []);
+  , []);
 
 module.exports = conf;
