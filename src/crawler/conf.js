@@ -16,10 +16,6 @@ function info(item, key) {
   return x;
 }
 
-function genURL(a, baseURL) {
-  return a.baseURL = baseURL + '/' + a.id, a;
-}
-
 var olx = {
   'http://rj.olx.com.br': [
     {

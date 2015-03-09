@@ -1,4 +1,3 @@
-
 module.exports = {
   save(ads) {
     require('./../db')().then(
