@@ -1,11 +1,18 @@
+var _ = require('lodash');
+
+function sv(db, ad) {
+  db.save(ad.id, _.omit(ad, 'id'));
+}
+
 module.exports = {
-  save (ads) {
+  save(ads) {
+
+
+
     require('./../db')().then(
       db => ads instanceof Array
-        ? ads.forEach(
-            ad => db.save(ad.id, ad)
-          )
-        : db.save(ads.id, ads)
+        ? ads.forEach(ad => sv(db, ad))
+        : sv(db, ads)
     );
   }
 };
