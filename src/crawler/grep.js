@@ -7,7 +7,7 @@ function trim(str) {
   return _.trim(str, ' \n\t').replace(/[\n\t]/gi, ' ').replace(/  +/g, ' ');
 }
 
-module.exports = function (html) {
+module.exports = function (html, ref) {
   var $ = cheerio.load(iconv.convert(html));
   var ads = [];
 
@@ -33,7 +33,7 @@ module.exports = function (html) {
     }
 
 
-    ads.push({
+    ads.push(_.merge({
       id: trim($adElem.attr('name')),
       title: title,
       price: parseFloat(
@@ -45,7 +45,7 @@ module.exports = function (html) {
       details: $adElem.find('.detail-specific').text().split('|').map(trim),
       location: $adElem.find('.detail-region').text().split(',').map(trim),
       lastUpdate: trim($adElem.find('.col-4').text())
-    });
+    }, ref.type));
   });
 
   return ads;

@@ -6,13 +6,11 @@ function sv(db, ad) {
 
 module.exports = {
   save(ads) {
-
-
-
     require('./../db')().then(
-      db => ads instanceof Array
+        db => ads instanceof Array
         ? ads.forEach(ad => sv(db, ad))
         : sv(db, ads)
     );
+    return ads;
   }
 };
