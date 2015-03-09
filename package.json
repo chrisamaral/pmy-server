@@ -2,9 +2,13 @@
   "name": "pmy-server",
   "version": "0.0.1",
   "dependencies": {
+    "async": "^0.9.0",
+    "bluebird": "^2.9.13",
     "cheerio": "^0.18.0",
+    "cradle": "^0.6.9",
+    "iconv": "^2.1.6",
     "lodash": "^3.4.0",
-    "scoped-http-client": "^0.10.3"
+    "request": "^2.53.0"
   },
   "devDependencies": {
     "find": "^0.1.7",

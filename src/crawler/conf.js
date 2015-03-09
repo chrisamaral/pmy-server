@@ -1,4 +1,4 @@
-import {flatten} from 'lodash';
+var flatten = require('lodash').flatten;
 
 function title(item) {
   return item.split('-').map(a => a[0].toUpperCase() + a.substr(1)).join(' ');
@@ -45,8 +45,8 @@ var olx = [
  title: 'ABC : DEFG : GHI',
  id: 'http://abc/def/ghi'
  */
-
-export var endpoints = olx[0].reduce(
+var conf = {};
+conf.endpoints = olx[0].reduce(
   (previous, current) =>
     flatten(
       current.map(a => previous.length > 0
@@ -60,3 +60,5 @@ export var endpoints = olx[0].reduce(
       )
     ), []
 );
+
+module.exports = conf;
