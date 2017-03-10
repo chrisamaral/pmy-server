@@ -1,10 +1,9 @@
-var Promise = require('bluebird');
-var r = require('rethinkdb');
-var noop = require('lodash').noop;
+var r = require('rethinkdb')
+var noop = require('lodash').noop
 
 module.exports = () => new Promise((resolve, reject) =>
-    r.connect({host: 'localhost', port: 28015})
-      .then(conn =>
+  r.connect({host: 'localhost', port: 28015})
+    .then(conn =>
         (db =>
           db.r.dbCreate('pmy')
             .run(db.conn)
@@ -15,7 +14,7 @@ module.exports = () => new Promise((resolve, reject) =>
                   .finally(() => resolve(db))
                   .catch(noop)
             )))({r: r, conn: conn}),
-        err => reject(err)
+      err => reject(err)
     )
-);
+)
 

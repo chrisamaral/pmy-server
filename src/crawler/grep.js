@@ -11,9 +11,9 @@ module.exports = function (html, ref) {
   var $ = cheerio.load(iconv.convert(html));
   var ads = [];
 
-  $('.section_ad-list .ad-list-link').each(function (i, adElem) {
+  $('.section_OLXad-list .OLXad-list-link').each(function (i, adElem) {
     var $adElem = $(this);
-    var $title = $adElem.find('.ad-list-title');
+    var $title = $adElem.find('.OLXad-list-title');
 
     if (!$title.length) {
       return;
@@ -26,7 +26,7 @@ module.exports = function (html, ref) {
       return;
     }
 
-    var price = trim($adElem.find('.ad-list-price').text());
+    var price = trim($adElem.find('.OLXad-list-price').text());
 
     if (!price) {
       return;
